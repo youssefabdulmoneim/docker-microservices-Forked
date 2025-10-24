@@ -96,15 +96,14 @@
    Product Management (5 APIs):
    - GET  /node/api/products
    - POST /node/api/products
-   - POST /node/api/products/:id
-   - GET  /node/api/products/:id/delete
+   - POST /node/api/products/:id           (Note: Uses POST, not PUT/PATCH)
+   - GET  /node/api/products/:id/delete    (Note: Uses GET, not DELETE method)
    - GET  /node/api/categories
 
-   User Management (4 APIs):
+   User Management (3 APIs):
    - GET  /node/api/users
    - POST /node/api/auth/signin
    - POST /node/api/auth/signup
-   - GET  /php/api/validate
 
    Order Management (2 APIs):
    - GET  /python/api/orders
@@ -112,6 +111,9 @@
 
    Health Check (1 API):
    - GET  /node/api
+
+   Note: /php/api/validate is listed under Authentication as it's primarily
+         an auth service, though it also returns user information.
 
 ================================================================================
 

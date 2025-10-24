@@ -41,9 +41,11 @@ This repository contains a microservices-based web application with the followin
 4. **GET /api/users** - List all users
 5. **GET /api/products** - List products (paginated, requires auth)
 6. **POST /api/products** - Add new product (requires auth)
-7. **POST /api/products/:id** - Update product (requires auth)
-8. **GET /api/products/:id/delete** - Delete product (requires auth)
+7. **POST /api/products/:id** - Update product (requires auth) *Note: Uses POST instead of PUT/PATCH*
+8. **GET /api/products/:id/delete** - Delete product (requires auth) *Note: Uses GET instead of DELETE method*
 9. **GET /api/categories** - List all categories (requires auth)
+
+**Note on REST Conventions**: Some endpoints don't follow standard REST practices (e.g., using POST for updates and GET for deletes). This is the actual implementation in the codebase.
 
 #### APIs Consumed:
 - None (Independent service)
