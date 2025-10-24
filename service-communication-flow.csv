@@ -1,0 +1,16 @@
+Source Service,Source Type,Target Service,Target Endpoint,Communication Type,Purpose,Data Flow,Authentication Method,Example Use Case
+Frontend,Next.js,api-php,POST /php/api/login,HTTP REST,User authentication,Frontend sends credentials -> api-php validates and returns JWT token,None (public endpoint),User logs into the system
+Frontend,Next.js,api-php,POST /php/api/signup,HTTP REST,User registration,Frontend sends user details -> api-php creates user account,None (public endpoint),New user registers as buyer or seller
+Frontend,Next.js,api-php,GET /php/api/validate,HTTP REST,Token validation,Frontend sends JWT token -> api-php validates and returns user data,Bearer Token,Frontend verifies user session on protected pages
+Frontend,Next.js,api-node,GET /node/api/products,HTTP REST,Fetch products,Frontend requests products with filters -> api-node returns paginated product list,Bearer Token,Buyer browses marketplace or seller views their stock
+Frontend,Next.js,api-node,POST /node/api/products,HTTP REST,Create product,Frontend sends new product data -> api-node creates product in database,Bearer Token,Seller adds new product to their inventory
+Frontend,Next.js,api-node,GET /node/api/categories,HTTP REST,Fetch categories,Frontend requests categories -> api-node returns category list,Bearer Token,Display category filters or dropdowns
+Frontend,Next.js,api-python,GET /python/api/orders,HTTP REST,Fetch orders,Frontend requests orders -> api-python returns buyer's order history,Bearer Token,Buyer views their past orders
+Frontend,Next.js,api-python,POST /python/api/orders,HTTP REST,Create order,Frontend sends cart items -> api-python creates order and details,Bearer Token,Buyer submits order from shopping cart
+api-python,Flask,api-php,GET /api/validate,HTTP REST,Validate user token,api-python forwards auth token -> api-php validates and returns user info,Bearer Token (forwarded),api-python validates user before allowing order operations
+End User,Browser,proxy,ANY /*,HTTP,Access application,User sends requests -> proxy routes to appropriate microservice,Various (depends on endpoint),User accesses any page or API
+proxy,Nginx,frontend,ANY /,HTTP Proxy,Serve frontend,Proxy forwards requests to Next.js frontend,N/A,User loads web pages
+proxy,Nginx,api-php,ANY /php/api/*,HTTP Proxy,Route to PHP API,Proxy forwards API requests to PHP service,N/A,Authentication endpoints
+proxy,Nginx,api-node,ANY /node/api/*,HTTP Proxy,Route to Node API,Proxy forwards API requests to Node service,N/A,Product and category endpoints
+proxy,Nginx,api-python,ANY /python/api/*,HTTP Proxy,Route to Python API,Proxy forwards API requests to Python service,N/A,Order management endpoints
+api-node,Express/Sequelize,postgres,N/A (Database Queries),Database Connection,Data persistence,api-node reads/writes users products categories to PostgreSQL,Database credentials,Store and retrieve all product catalog data

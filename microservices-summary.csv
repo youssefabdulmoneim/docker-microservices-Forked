@@ -1,0 +1,7 @@
+Microservice Name,Type,Port,Technology,Total API Endpoints,Purpose,Dependencies (Consumes),Dependents (Provides To),Database,Key Features
+api-php,Backend API,8000,PHP/Lumen,3,Authentication and user management,None,Frontend & api-python,None (uses MySQL/other),JWT token generation and validation; User login/signup
+api-node,Backend API,8001,Node.js/Express/Sequelize,11,Product and category management,postgres,Frontend,PostgreSQL,CRUD operations for products; Category listing; User management; Auth middleware
+api-python,Backend API,8002,Python/Flask/SQLAlchemy,2,Order management,api-php (for auth validation),Frontend,SQLite/PostgreSQL,Order creation and listing; Validates users via api-php; Order details with products
+frontend,Frontend SPA,3000,Next.js/React,8,User interface for buyers and sellers,api-php & api-node & api-python,End Users (Browser),None (client-side),Server-side rendering; Role-based pages (buyer/seller); Shopping cart; Product browsing
+proxy,Reverse Proxy,80,Nginx,N/A,API Gateway and routing,All backend services,All clients,None,Routes /php/api to api-php:8000; Routes /node/api to api-node:8001; Routes /python/api to api-python:8002; Routes / to frontend:3000
+postgres,Database,5432,PostgreSQL 11,N/A,Data persistence,None,api-node,N/A,Stores users; products; categories; orders; Relational data with foreign keys
