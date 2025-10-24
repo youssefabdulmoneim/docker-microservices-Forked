@@ -1,0 +1,31 @@
+Microservice,Port,Endpoint Path,HTTP Method,Authentication Required,Description,Consumer Service,Consumer Type,Request Body/Params,Response Type
+api-php,8000,/api/login,POST,No,Authenticate user and generate JWT token,frontend,Next.js Frontend,"email, password",JWT token
+api-php,8000,/api/signup,POST,No,Register a new user,frontend,Next.js Frontend,"name, email, password, confirmed_password, usertype",User object
+api-php,8000,/api/validate,GET,Yes (JWT Bearer),Validate JWT token and return user info,api-python,Python Microservice,None (requires Authorization header),User object
+api-php,8000,/api/validate,GET,Yes (JWT Bearer),Validate JWT token and return user info,frontend,Next.js Frontend,None (requires Authorization header),User object
+api-node,8001,/api,GET,No,Health check endpoint - returns Hello world,None,N/A,None,Message object
+api-node,8001,/api/auth/signin,POST,No,User signin authentication,None,N/A,"email, password",Authentication response
+api-node,8001,/api/auth/signup,POST,No,User signup registration,None,N/A,User registration data,User object
+api-node,8001,/api/users,GET,No,List all users,None,N/A,None,Array of users
+api-node,8001,/api/products,GET,Yes (JWT Bearer),List all products with pagination,frontend,Next.js Frontend,"page, pageSize (query params)",Products array with metadata
+api-node,8001,/api/products,POST,Yes (JWT Bearer),Add a new product,frontend,Next.js Frontend,"name, description, price, stock, categoryId",Product object
+api-node,8001,/api/products/:id,POST,Yes (JWT Bearer),Update existing product,None,N/A,"name, description, price, stock, categoryId",Updated product object
+api-node,8001,/api/products/:id/delete,GET,Yes (JWT Bearer),Delete a product,None,N/A,Product ID in URL,Deletion confirmation
+api-node,8001,/api/categories,GET,Yes (JWT Bearer),List all categories,frontend,Next.js Frontend,None,Array of categories
+api-python,8002,/api/orders,GET,Yes (JWT Bearer via PHP validation),Get all orders for buyer users,frontend,Next.js Frontend,None (requires Authorization header),Array of orders
+api-python,8002,/api/orders,POST,Yes (JWT Bearer via PHP validation),Create a new order,frontend,Next.js Frontend,"seller, items (array with id, quantity, price)",Order creation confirmation
+frontend,3000,/,GET,No,Login page - consumes PHP login & validate APIs,User Browser,Web Browser,Login form,HTML page
+frontend,3000,/register,GET,No,Registration page - consumes PHP signup API,User Browser,Web Browser,Registration form,HTML page
+frontend,3000,/market,GET,Yes,Market page - displays products and categories,User Browser,Web Browser,None,HTML page with products
+frontend,3000,/stock,GET,Yes,Stock management page - list products,User Browser,Web Browser,None,HTML page with stock
+frontend,3000,/stock/add,GET,Yes,Add product page - create new products,User Browser,Web Browser,Product form,HTML page
+frontend,3000,/cart,GET,Yes,Shopping cart - creates orders,User Browser,Web Browser,Cart items,HTML page
+frontend,3000,/orders,GET,Yes,Orders page - displays user orders,User Browser,Web Browser,None,HTML page with orders
+frontend,3000,/categories,GET,Yes,Categories page - displays all categories,User Browser,Web Browser,None,HTML page with categories
+proxy (nginx),80,/,ANY,No,Proxy to Next.js frontend,External,External Clients,Any,Proxied response
+proxy (nginx),80,/php/api/*,ANY,No,Proxy to PHP API service,External,External Clients,Any,Proxied response
+proxy (nginx),80,/node/api/*,ANY,No,Proxy to Node.js API service,External,External Clients,Any,Proxied response
+proxy (nginx),80,/python/api/*,ANY,No,Proxy to Python API service,External,External Clients,Any,Proxied response
+postgres,5432,N/A (Database),N/A,Yes,PostgreSQL database for all services,api-node,Node.js Microservice,SQL queries,Database records
+postgres,5432,N/A (Database),N/A,Yes,PostgreSQL database for all services,api-python,Python Microservice,SQL queries,Database records
+postgres,5432,N/A (Database),N/A,Yes,PostgreSQL database for all services,api-php,PHP Microservice,SQL queries,Database records
