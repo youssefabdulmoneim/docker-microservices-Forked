@@ -1,0 +1,21 @@
+Metric,Value,Details
+Total Microservices,6,"api-php, api-node, api-python, frontend, proxy, postgres"
+Total Backend APIs,3,"api-php, api-node, api-python"
+Total API Endpoints,16,"3 (api-php) + 11 (api-node) + 2 (api-python)"
+Total Frontend Routes,8,"/, /register, /market, /cart, /orders, /stock, /stock/add, /categories"
+Authentication Service,1,api-php (handles all authentication)
+Product Management Service,1,api-node (handles products and categories)
+Order Management Service,1,api-python (handles order creation and listing)
+Frontend Service,1,frontend (Next.js)
+Reverse Proxy,1,proxy (Nginx)
+Database Services,1,postgres (PostgreSQL)
+Inter-Service Dependencies,2,api-python -> api-php (auth validation); api-node -> postgres (data storage)
+Public Endpoints (No Auth),5,"/php/api/login, /php/api/signup, /node/api, /node/api/auth/signin, /node/api/auth/signup"
+Protected Endpoints (Auth Required),11,"All other API endpoints require Bearer token authentication"
+HTTP Methods Used,3,"GET, POST, DELETE"
+Authentication Methods,2,"JWT Bearer Token, Cookie-based sessions"
+Technologies Used,7,"PHP/Lumen, Node.js/Express, Python/Flask, Next.js/React, PostgreSQL, Nginx, Docker"
+Port Mappings,6,"80 (proxy), 3000 (frontend), 8000 (api-php), 8001 (api-node), 8002 (api-python), 5432 (postgres)"
+API Gateway Pattern,Yes,Nginx proxy routes all external traffic to internal services
+Microservices Communication,Internal,Services communicate via internal Docker network (backend)
+User Roles,2,"buyer (can browse and order), seller (can manage inventory)"
