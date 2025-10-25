@@ -1,6 +1,6 @@
 # Docker Microservices
 
-This is a example about how to work using microservices approach to build
+# This is a example about how to work using microservices approach to build
 a web application.
 
 We are using `docker` and `docker-compose` to handle our microservices.
